@@ -1,4 +1,4 @@
-package net.shirojr;
+package net.shirojr.kitting;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.shirojr.kitting.init.KittingEvents;

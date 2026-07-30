@@ -19,7 +19,7 @@
 			"net.shirojr.kitting.Kitting"
 		],
 		"client": [
-			"net.shirojr.KittingClient"
+          "net.shirojr.kitting.KittingClient"
 		],
 		"fabric-datagen": [
 			"net.shirojr.kitting.KittingDataGenerator"
