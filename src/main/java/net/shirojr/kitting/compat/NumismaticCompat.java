@@ -1,0 +1,76 @@
+package net.shirojr.kitting.compat;
+
+import com.glisco.numismaticoverhaul.ModComponents;
+import com.glisco.numismaticoverhaul.currency.CurrencyComponent;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.shirojr.kitting.compat.util.CompatEntry;
+import net.shirojr.kitting.compat.util.Mod;
+import net.shirojr.kitting.util.NbtKeys;
+
+public class NumismaticCompat implements CompatEntry<NumismaticCompat> {
+    private long storedCurrency;
+
+    public NumismaticCompat(long storedCurrency) {
+        if (!isLoaded()) throw new IllegalStateException(getNotLoadedMessage());
+        this.storedCurrency = storedCurrency;
+    }
+
+    public NumismaticCompat() {
+        this(0);
+    }
+
+    @Override
+    public Mod getCompatMod() {
+        return Mod.NUMISMATIC_OVERHAUL;
+    }
+
+    public long getStoredCurrency() {
+        return storedCurrency;
+    }
+
+    public void setStoredCurrency(long storedCurrency) {
+        this.storedCurrency = Math.max(0, storedCurrency);
+    }
+
+    public void updateStoredCurrency(PlayerEntity player) {
+        this.setStoredCurrency(getLiveCurrency(player));
+    }
+
+    public void applyStoredCurrency(PlayerEntity player) {
+        setLiveCurrency(player, this.getStoredCurrency());
+    }
+
+    private static long getLiveCurrency(PlayerEntity player) {
+        return ModComponents.CURRENCY.get(player).getValue();
+    }
+
+    private static void setLiveCurrency(PlayerEntity player, long value) {
+        CurrencyComponent component = ModComponents.CURRENCY.get(player);
+        component.pushTransaction(-component.getValue());
+        component.pushTransaction(value);
+        component.commitTransactions();
+    }
+
+    @Override
+    public NumismaticCompat copy() {
+        return new NumismaticCompat(this.storedCurrency);
+    }
+
+    @Override
+    public void clearLiveData(PlayerEntity player) {
+        setLiveCurrency(player, 0);
+    }
+
+    @Override
+    public void fromNbt(NbtCompound nbt) {
+        if (nbt.contains(NbtKeys.NUMISMATIC_CURRENCY)) {
+            this.storedCurrency = nbt.getLong(NbtKeys.NUMISMATIC_CURRENCY);
+        }
+    }
+
+    @Override
+    public void toNbt(NbtCompound nbt) {
+        nbt.putLong(NbtKeys.NUMISMATIC_CURRENCY, this.storedCurrency);
+    }
+}

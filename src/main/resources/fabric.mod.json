@@ -1,0 +1,51 @@
+{
+	"schemaVersion": 1,
+	"id": "kitting",
+	"version": "${version}",
+	"name": "Kitting",
+	"description": "Store inventory kits including compat with other mods",
+	"authors": [
+		"DEV - ShiroJR1811"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "GPL-3.0 license",
+	"icon": "assets/kitting/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.shirojr.kitting.Kitting"
+		],
+		"client": [
+			"net.shirojr.KittingClient"
+		],
+		"fabric-datagen": [
+			"net.shirojr.kitting.KittingDataGenerator"
+		],
+		"cardinal-components-entity": [
+			"net.shirojr.kitting.init.KittingComponents"
+		]
+	},
+	"mixins": [
+		"kitting.mixins.json"
+	],
+	"custom": {
+		"cardinal-components": [
+			"kitting:kit"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*",
+		"cardinal-components-base": "^5.2.3",
+		"cardinal-components-entity": "^5.2.3"
+	},
+	"recommends": {
+		"numismatic_overhaul": "*",
+		"ashbornrp": "*"
+	}
+}
