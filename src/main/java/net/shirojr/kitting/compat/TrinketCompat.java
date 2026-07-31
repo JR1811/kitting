@@ -22,7 +22,13 @@ public class TrinketCompat implements CompatEntry<TrinketCompat> {
         this(new NbtCompound());
     }
 
-    public void updateStoredTrinkets(PlayerEntity player) {
+    @Override
+    public TrinketCompat copy() {
+        return new TrinketCompat(this.trinketsNbt.copy());
+    }
+
+    @Override
+    public void update(PlayerEntity player) {
         TrinketsApi.getTrinketComponent(player).ifPresent(component -> {
             NbtCompound nbt = new NbtCompound();
             component.writeToNbt(nbt);
@@ -30,7 +36,8 @@ public class TrinketCompat implements CompatEntry<TrinketCompat> {
         });
     }
 
-    public void applyStoredTrinkets(PlayerEntity player) {
+    @Override
+    public void apply(PlayerEntity player) {
         TrinketsApi.getTrinketComponent(player).ifPresent(component -> {
             for (Map<String, TrinketInventory> group : component.getInventory().values()) {
                 for (TrinketInventory inventory : group.values()) {
@@ -39,11 +46,6 @@ public class TrinketCompat implements CompatEntry<TrinketCompat> {
             }
             component.readFromNbt(this.trinketsNbt);
         });
-    }
-
-    @Override
-    public TrinketCompat copy() {
-        return new TrinketCompat(this.trinketsNbt.copy());
     }
 
     @Override

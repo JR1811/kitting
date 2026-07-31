@@ -21,25 +21,6 @@ public class AshbornCompat implements CompatEntry<AshbornCompat> {
         this(new NbtCompound());
     }
 
-    public void updateStoredAccessories(PlayerEntity player) {
-        AccessoriesComponent component = AccessoriesComponent.fromEntity(player);
-        if (component == null) return;
-        NbtCompound ashbornCompatNbt = new NbtCompound();
-        component.writeToNbt(ashbornCompatNbt);
-        this.accessoriesNbt = ashbornCompatNbt.contains("accessories")  //FIXME: external mod should store constants for better compat
-                ? ashbornCompatNbt.getCompound("accessories")
-                : new NbtCompound();
-    }
-
-    public void applyStoredAccessories(PlayerEntity player) {
-        AccessoriesComponent component = AccessoriesComponent.fromEntity(player);
-        if (component == null) return;
-        NbtCompound ashbornCompatNbt = new NbtCompound();
-        ashbornCompatNbt.put("accessories", this.accessoriesNbt);
-        component.readFromNbt(ashbornCompatNbt);
-        component.sync();
-    }
-
     @Override
     public Mod getCompatMod() {
         return Mod.ASHBORNRP;
@@ -60,6 +41,27 @@ public class AshbornCompat implements CompatEntry<AshbornCompat> {
     @Override
     public AshbornCompat copy() {
         return new AshbornCompat(this.accessoriesNbt.copy());
+    }
+
+    @Override
+    public void update(PlayerEntity player) {
+        AccessoriesComponent component = AccessoriesComponent.fromEntity(player);
+        if (component == null) return;
+        NbtCompound ashbornCompatNbt = new NbtCompound();
+        component.writeToNbt(ashbornCompatNbt);
+        this.accessoriesNbt = ashbornCompatNbt.contains("accessories")  //FIXME: external mod should store constants for better compat
+                ? ashbornCompatNbt.getCompound("accessories")
+                : new NbtCompound();
+    }
+
+    @Override
+    public void apply(PlayerEntity player) {
+        AccessoriesComponent component = AccessoriesComponent.fromEntity(player);
+        if (component == null) return;
+        NbtCompound ashbornCompatNbt = new NbtCompound();
+        ashbornCompatNbt.put("accessories", this.accessoriesNbt);
+        component.readFromNbt(ashbornCompatNbt);
+        component.sync();
     }
 
     @Override

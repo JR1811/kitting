@@ -33,14 +33,6 @@ public class NumismaticCompat implements CompatEntry<NumismaticCompat> {
         this.storedCurrency = Math.max(0, storedCurrency);
     }
 
-    public void updateStoredCurrency(PlayerEntity player) {
-        this.setStoredCurrency(getLiveCurrency(player));
-    }
-
-    public void applyStoredCurrency(PlayerEntity player) {
-        setLiveCurrency(player, this.getStoredCurrency());
-    }
-
     private static long getLiveCurrency(PlayerEntity player) {
         return ModComponents.CURRENCY.get(player).getValue();
     }
@@ -55,6 +47,16 @@ public class NumismaticCompat implements CompatEntry<NumismaticCompat> {
     @Override
     public NumismaticCompat copy() {
         return new NumismaticCompat(this.storedCurrency);
+    }
+
+    @Override
+    public void update(PlayerEntity player) {
+        this.setStoredCurrency(getLiveCurrency(player));
+    }
+
+    @Override
+    public void apply(PlayerEntity player) {
+        setLiveCurrency(player, this.getStoredCurrency());
     }
 
     @Override
