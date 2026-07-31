@@ -2,6 +2,7 @@ package net.shirojr.kitting.component.data;
 
 import net.shirojr.kitting.KittingCompat;
 import net.shirojr.kitting.compat.AshbornCompat;
+import net.shirojr.kitting.compat.HideBodyPartsCompat;
 import net.shirojr.kitting.compat.NumismaticCompat;
 import net.shirojr.kitting.compat.TrinketCompat;
 import net.shirojr.kitting.compat.util.Mod;
@@ -17,7 +18,8 @@ public enum KitFeature {
     ENDER_CHEST_INVENTORY(null, KittingNbtKeys.ENDER_CHEST_INVENTORY, EnderChestInventoryKitEntry::new),
     NUMISMATIC_OVERHAUL(Mod.NUMISMATIC_OVERHAUL, KittingNbtKeys.NUMISMATIC_CURRENCY, NumismaticCompat::new),
     TRINKETS(Mod.TRINKETS, KittingNbtKeys.TRINKETS, TrinketCompat::new),
-    ASHBORNRP(Mod.ASHBORNRP, KittingNbtKeys.ACCESSORIES, AshbornCompat::new);
+    ASHBORNRP(Mod.ASHBORNRP, KittingNbtKeys.ACCESSORIES, AshbornCompat::new),
+    HIDE_BODY_PARTS(Mod.HIDE_BODY_PARTS, KittingNbtKeys.BODY_PARTS, HideBodyPartsCompat::new);
 
     private final @Nullable Mod requiredMod;
     private final String nbtKey;

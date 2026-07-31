@@ -46,6 +46,8 @@
 	},
 	"recommends": {
 		"numismatic_overhaul": "*",
-		"ashbornrp": "*"
+		"ashbornrp": "*",
+		"trinkets": "*",
+		"hide-body-parts": "*"
 	}
 }

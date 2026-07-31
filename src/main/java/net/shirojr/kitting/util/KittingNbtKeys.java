@@ -8,4 +8,5 @@ public interface KittingNbtKeys {
     String NUMISMATIC_CURRENCY = "NumismaticCurrency";
     String TRINKETS = "Trinkets";
     String ACCESSORIES = "Accessories";
+    String BODY_PARTS = "BodyParts";
 }

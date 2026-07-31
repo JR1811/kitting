@@ -3,7 +3,8 @@ package net.shirojr.kitting.compat.util;
 public enum Mod {
     NUMISMATIC_OVERHAUL("numismatic-overhaul"),
     ASHBORNRP("ashbornrp"),
-    TRINKETS("trinkets");
+    TRINKETS("trinkets"),
+    HIDE_BODY_PARTS("hide-body-parts");
 
     private final String modId;
 

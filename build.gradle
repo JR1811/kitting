@@ -59,10 +59,13 @@ dependencies {
     modImplementation "io.wispforest:owo-lib:${project.owo_version}"
 
     // AshbornRP Mod
-    modApi "maven.modrinth:ashbornmod:${project.ashbornmod_version}"
+    modImplementation "maven.modrinth:ashbornmod:${project.ashbornmod_version}"
 
     // Trinkets
-    modApi "dev.emi:trinkets:${project.trinkets_version}"
+    modImplementation "dev.emi:trinkets:${project.trinkets_version}"
+
+    // Hide Body Parts
+    modImplementation "maven.modrinth:hide-body-parts:${project.hide_body_parts_version}"
 }
 
 processResources {
