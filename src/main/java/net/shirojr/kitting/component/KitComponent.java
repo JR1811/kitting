@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 import net.shirojr.kitting.Kitting;
 import net.shirojr.kitting.component.data.Kit;
 import net.shirojr.kitting.init.KittingComponents;
-import net.shirojr.kitting.util.NbtKeys;
+import net.shirojr.kitting.util.KittingNbtKeys;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -55,6 +55,7 @@ public class KitComponent implements Component, AutoSyncedComponent {
         this.sync();
     }
 
+    @SuppressWarnings("unused")
     public void modifyKit(Identifier identifier, Consumer<Kit> kitModifier) {
         Kit kit = this.storedKits.get(identifier);
         if (kit == null) return;
@@ -88,11 +89,11 @@ public class KitComponent implements Component, AutoSyncedComponent {
     @Override
     public void readFromNbt(NbtCompound tag) {
         this.storedKits.clear();
-        if (tag.contains(NbtKeys.STORED_KITS)) {
-            NbtList storedKitsNbt = tag.getList(NbtKeys.STORED_KITS, NbtElement.COMPOUND_TYPE);
+        if (tag.contains(KittingNbtKeys.STORED_KITS)) {
+            NbtList storedKitsNbt = tag.getList(KittingNbtKeys.STORED_KITS, NbtElement.COMPOUND_TYPE);
             for (int i = 0; i < storedKitsNbt.size(); i++) {
                 NbtCompound entryNbt = storedKitsNbt.getCompound(i);
-                String kitKey = entryNbt.getString(NbtKeys.KIT_IDENTIFIER);
+                String kitKey = entryNbt.getString(KittingNbtKeys.KIT_IDENTIFIER);
                 Identifier kitId = Identifier.tryParse(kitKey);
                 if (kitId == null) {
                     Kitting.LOGGER.warn("Couldn't read Kit ID: {}", kitKey);
@@ -109,11 +110,11 @@ public class KitComponent implements Component, AutoSyncedComponent {
         NbtList storedKitsNbt = new NbtList();
         for (var entry : this.storedKits.entrySet()) {
             NbtCompound entryNbt = new NbtCompound();
-            entryNbt.putString(NbtKeys.KIT_IDENTIFIER, entry.getKey().toString());
+            entryNbt.putString(KittingNbtKeys.KIT_IDENTIFIER, entry.getKey().toString());
             entry.getValue().toNbt(entryNbt);
             storedKitsNbt.add(entryNbt);
         }
-        tag.put(NbtKeys.STORED_KITS, storedKitsNbt);
+        tag.put(KittingNbtKeys.STORED_KITS, storedKitsNbt);
     }
 
     @SuppressWarnings("unused")

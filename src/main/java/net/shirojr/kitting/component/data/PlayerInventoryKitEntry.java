@@ -6,7 +6,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.shirojr.kitting.component.util.KitEntry;
-import net.shirojr.kitting.util.NbtKeys;
+import net.shirojr.kitting.util.KittingNbtKeys;
 
 public class PlayerInventoryKitEntry implements KitEntry<PlayerInventoryKitEntry> {
     private NbtList inventoryNbt = new NbtList();
@@ -38,13 +38,13 @@ public class PlayerInventoryKitEntry implements KitEntry<PlayerInventoryKitEntry
 
     @Override
     public void fromNbt(NbtCompound nbt) {
-        if (nbt.contains(NbtKeys.PLAYER_INVENTORY)) {
-            this.inventoryNbt = nbt.getList(NbtKeys.PLAYER_INVENTORY, NbtElement.COMPOUND_TYPE);
+        if (nbt.contains(KittingNbtKeys.PLAYER_INVENTORY)) {
+            this.inventoryNbt = nbt.getList(KittingNbtKeys.PLAYER_INVENTORY, NbtElement.COMPOUND_TYPE);
         }
     }
 
     @Override
     public void toNbt(NbtCompound nbt) {
-        nbt.put(NbtKeys.PLAYER_INVENTORY, this.inventoryNbt);
+        nbt.put(KittingNbtKeys.PLAYER_INVENTORY, this.inventoryNbt);
     }
 }

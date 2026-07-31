@@ -6,7 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.shirojr.kitting.compat.util.CompatEntry;
 import net.shirojr.kitting.compat.util.Mod;
-import net.shirojr.kitting.util.NbtKeys;
+import net.shirojr.kitting.util.KittingNbtKeys;
 
 import java.util.Map;
 
@@ -61,14 +61,14 @@ public class TrinketCompat implements CompatEntry<TrinketCompat> {
 
     @Override
     public void fromNbt(NbtCompound nbt) {
-        if (nbt.contains(NbtKeys.TRINKETS)) {
-            this.trinketsNbt = nbt.getCompound(NbtKeys.TRINKETS);
+        if (nbt.contains(KittingNbtKeys.TRINKETS)) {
+            this.trinketsNbt = nbt.getCompound(KittingNbtKeys.TRINKETS);
         }
     }
 
     @Override
     public void toNbt(NbtCompound nbt) {
-        nbt.put(NbtKeys.TRINKETS, this.trinketsNbt);
+        nbt.put(KittingNbtKeys.TRINKETS, this.trinketsNbt);
     }
 
     @Override

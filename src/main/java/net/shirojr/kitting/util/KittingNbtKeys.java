@@ -1,6 +1,6 @@
 package net.shirojr.kitting.util;
 
-public interface NbtKeys {
+public interface KittingNbtKeys {
     String KIT_IDENTIFIER = "KitId";
     String STORED_KITS = "StoredKits";
     String PLAYER_INVENTORY = "PlayerInventory";

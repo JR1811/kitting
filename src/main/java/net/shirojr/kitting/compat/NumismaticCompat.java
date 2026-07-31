@@ -6,7 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.shirojr.kitting.compat.util.CompatEntry;
 import net.shirojr.kitting.compat.util.Mod;
-import net.shirojr.kitting.util.NbtKeys;
+import net.shirojr.kitting.util.KittingNbtKeys;
 
 public class NumismaticCompat implements CompatEntry<NumismaticCompat> {
     private long storedCurrency;
@@ -66,13 +66,13 @@ public class NumismaticCompat implements CompatEntry<NumismaticCompat> {
 
     @Override
     public void fromNbt(NbtCompound nbt) {
-        if (nbt.contains(NbtKeys.NUMISMATIC_CURRENCY)) {
-            this.storedCurrency = nbt.getLong(NbtKeys.NUMISMATIC_CURRENCY);
+        if (nbt.contains(KittingNbtKeys.NUMISMATIC_CURRENCY)) {
+            this.storedCurrency = nbt.getLong(KittingNbtKeys.NUMISMATIC_CURRENCY);
         }
     }
 
     @Override
     public void toNbt(NbtCompound nbt) {
-        nbt.putLong(NbtKeys.NUMISMATIC_CURRENCY, this.storedCurrency);
+        nbt.putLong(KittingNbtKeys.NUMISMATIC_CURRENCY, this.storedCurrency);
     }
 }

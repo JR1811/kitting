@@ -5,7 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.shirojr.kitting.compat.util.CompatEntry;
 import net.shirojr.kitting.compat.util.Mod;
-import net.shirojr.kitting.util.NbtKeys;
+import net.shirojr.kitting.util.KittingNbtKeys;
 
 import java.util.HashSet;
 
@@ -28,14 +28,14 @@ public class AshbornCompat implements CompatEntry<AshbornCompat> {
 
     @Override
     public void fromNbt(NbtCompound nbt) {
-        if (nbt.contains(NbtKeys.ACCESSORIES)) {
-            this.accessoriesNbt = nbt.getCompound(NbtKeys.ACCESSORIES);
+        if (nbt.contains(KittingNbtKeys.ACCESSORIES)) {
+            this.accessoriesNbt = nbt.getCompound(KittingNbtKeys.ACCESSORIES);
         }
     }
 
     @Override
     public void toNbt(NbtCompound nbt) {
-        nbt.put(NbtKeys.ACCESSORIES, this.accessoriesNbt);
+        nbt.put(KittingNbtKeys.ACCESSORIES, this.accessoriesNbt);
     }
 
     @Override

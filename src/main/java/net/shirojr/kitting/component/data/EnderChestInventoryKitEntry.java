@@ -6,7 +6,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.shirojr.kitting.component.util.KitEntry;
-import net.shirojr.kitting.util.NbtKeys;
+import net.shirojr.kitting.util.KittingNbtKeys;
 
 public class EnderChestInventoryKitEntry implements KitEntry<EnderChestInventoryKitEntry> {
     private NbtList inventoryNbt = new NbtList();
@@ -38,13 +38,13 @@ public class EnderChestInventoryKitEntry implements KitEntry<EnderChestInventory
 
     @Override
     public void fromNbt(NbtCompound nbt) {
-        if (nbt.contains(NbtKeys.ENDER_CHEST_INVENTORY)) {
-            this.inventoryNbt = nbt.getList(NbtKeys.ENDER_CHEST_INVENTORY, NbtElement.COMPOUND_TYPE);
+        if (nbt.contains(KittingNbtKeys.ENDER_CHEST_INVENTORY)) {
+            this.inventoryNbt = nbt.getList(KittingNbtKeys.ENDER_CHEST_INVENTORY, NbtElement.COMPOUND_TYPE);
         }
     }
 
     @Override
     public void toNbt(NbtCompound nbt) {
-        nbt.put(NbtKeys.ENDER_CHEST_INVENTORY, this.inventoryNbt);
+        nbt.put(KittingNbtKeys.ENDER_CHEST_INVENTORY, this.inventoryNbt);
     }
 }

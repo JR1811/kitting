@@ -6,18 +6,18 @@ import net.shirojr.kitting.compat.NumismaticCompat;
 import net.shirojr.kitting.compat.TrinketCompat;
 import net.shirojr.kitting.compat.util.Mod;
 import net.shirojr.kitting.component.util.KitEntry;
-import net.shirojr.kitting.util.NbtKeys;
+import net.shirojr.kitting.util.KittingNbtKeys;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.function.Supplier;
 
 public enum KitFeature {
-    INVENTORY(null, NbtKeys.PLAYER_INVENTORY, PlayerInventoryKitEntry::new),
-    ENDER_CHEST_INVENTORY(null, NbtKeys.ENDER_CHEST_INVENTORY, EnderChestInventoryKitEntry::new),
-    NUMISMATIC_OVERHAUL(Mod.NUMISMATIC_OVERHAUL, NbtKeys.NUMISMATIC_CURRENCY, NumismaticCompat::new),
-    TRINKETS(Mod.TRINKETS, NbtKeys.TRINKETS, TrinketCompat::new),
-    ASHBORNRP(Mod.ASHBORNRP, NbtKeys.ACCESSORIES, AshbornCompat::new);
+    INVENTORY(null, KittingNbtKeys.PLAYER_INVENTORY, PlayerInventoryKitEntry::new),
+    ENDER_CHEST_INVENTORY(null, KittingNbtKeys.ENDER_CHEST_INVENTORY, EnderChestInventoryKitEntry::new),
+    NUMISMATIC_OVERHAUL(Mod.NUMISMATIC_OVERHAUL, KittingNbtKeys.NUMISMATIC_CURRENCY, NumismaticCompat::new),
+    TRINKETS(Mod.TRINKETS, KittingNbtKeys.TRINKETS, TrinketCompat::new),
+    ASHBORNRP(Mod.ASHBORNRP, KittingNbtKeys.ACCESSORIES, AshbornCompat::new);
 
     private final @Nullable Mod requiredMod;
     private final String nbtKey;
