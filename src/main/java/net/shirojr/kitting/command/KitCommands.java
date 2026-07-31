@@ -14,12 +14,16 @@ import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.shirojr.kitting.component.KitComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static net.minecraft.server.command.CommandManager.argument;
@@ -38,6 +42,8 @@ public class KitCommands implements CommandRegistrationCallback {
             new SimpleCommandExceptionType(Text.literal("No loss of data allowed. If you clear self, make sure to store the data in the kit"));
     private static final SimpleCommandExceptionType NO_DATA_CHANGED =
             new SimpleCommandExceptionType(Text.literal("No data was changed"));
+    private static final SimpleCommandExceptionType NO_DATA_FOUND =
+            new SimpleCommandExceptionType(Text.literal("No data found"));
 
     private static final SuggestionProvider<ServerCommandSource> REGISTERED_KIT_SUGGESTER = (context, builder) -> {
         ServerPlayerEntity player = context.getSource().getPlayer();
@@ -75,6 +81,14 @@ public class KitCommands implements CommandRegistrationCallback {
                                 )
                         )
                 )
+                .then(literal("print")
+                        .executes(context -> KitCommands.printKits(context, null))
+                        .then(argument("targets", EntityArgumentType.players())
+                                .executes(context ->
+                                        KitCommands.printKits(context, EntityArgumentType.getPlayers(context, "targets"))
+                                )
+                        )
+                )
                 .then(literal("share")
                         .then(argument("id", IdentifierArgumentType.identifier())
                                 .suggests(REGISTERED_KIT_SUGGESTER)
@@ -93,6 +107,36 @@ public class KitCommands implements CommandRegistrationCallback {
                         )
                 )
         );
+    }
+
+    private static int printKits(CommandContext<ServerCommandSource> context, @Nullable Collection<ServerPlayerEntity> targets) throws CommandSyntaxException {
+        if (targets == null) {
+            ServerPlayerEntity player = context.getSource().getPlayer();
+            if (player == null) throw NO_TARGET.create();
+            targets = Set.of(player);
+        }
+        if (targets.isEmpty()) {
+            throw NO_TARGET.create();
+        }
+        HashSet<Identifier> allKits = new HashSet<>();
+        targets.forEach(player -> allKits.addAll(KitComponent.get(player).getRegisteredKits()));
+        if (allKits.isEmpty()) throw NO_DATA_FOUND.create();
+        for (ServerPlayerEntity target : targets) {
+            KitComponent component = KitComponent.get(target);
+            List<Identifier> registeredKits = component.getRegisteredKits();
+            if (registeredKits.isEmpty()) continue;
+            MutableText printText = Text.empty().append(target.getName()).append(": ").styled(style -> style.withColor(Formatting.GREEN));
+            for (int i = 0; i < registeredKits.size(); i++) {
+                Identifier kitId = registeredKits.get(i);
+                if (i != 0) {
+                    printText.append(", ");
+                }
+                printText.append(Text.literal(kitId.toString()));
+            }
+
+            context.getSource().sendFeedback(() -> printText, false);
+        }
+        return Command.SINGLE_SUCCESS;
     }
 
     private static int removeKit(CommandContext<ServerCommandSource> context, @Nullable Collection<ServerPlayerEntity> targets) throws CommandSyntaxException {

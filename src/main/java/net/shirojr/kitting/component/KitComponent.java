@@ -17,8 +17,9 @@ import net.shirojr.kitting.init.KittingComponents;
 import net.shirojr.kitting.util.NbtKeys;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class KitComponent implements Component, AutoSyncedComponent {
@@ -40,8 +41,8 @@ public class KitComponent implements Component, AutoSyncedComponent {
         return this.storedKits.containsKey(identifier);
     }
 
-    public Set<Identifier> getRegisteredKits() {
-        return this.storedKits.keySet();
+    public List<Identifier> getRegisteredKits() {
+        return new ArrayList<>(this.storedKits.keySet());
     }
 
     public void createKit(Identifier identifier) {
