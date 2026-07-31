@@ -72,10 +72,12 @@ public class KitCommands implements CommandRegistrationCallback {
                 .then(literal("apply")
                         .then(argument("id", IdentifierArgumentType.identifier())
                                 .suggests(REGISTERED_KIT_SUGGESTER)
-                                .executes(context -> KitCommands.applyKit(context, null))
-                                .then(argument("targets", EntityArgumentType.players())
-                                        .executes(context ->
-                                                KitCommands.applyKit(context, EntityArgumentType.getPlayers(context, "targets"))
+                                .then(argument("removeAfter", BoolArgumentType.bool())
+                                        .executes(context -> KitCommands.applyKit(context, null))
+                                        .then(argument("targets", EntityArgumentType.players())
+                                                .executes(context ->
+                                                        KitCommands.applyKit(context, EntityArgumentType.getPlayers(context, "targets"))
+                                                )
                                         )
                                 )
                         )
@@ -211,6 +213,7 @@ public class KitCommands implements CommandRegistrationCallback {
             throw NO_TARGET.create();
         }
         Identifier id = IdentifierArgumentType.getIdentifier(context, "id");
+        boolean removeAfter = BoolArgumentType.getBool(context, "removeAfter");
         for (ServerPlayerEntity target : targets) {
             KitComponent component = KitComponent.get(target);
             if (!component.getRegisteredKits().contains(id)) {
@@ -219,6 +222,10 @@ public class KitCommands implements CommandRegistrationCallback {
             }
             component.applyKit(id);
             context.getSource().sendFeedback(() -> Text.literal("Applied stored Kit to " + target.getName().getString()), false);
+            if (removeAfter) {
+                component.removeKits(Set.of(id));
+                context.getSource().sendFeedback(() -> Text.literal("Removed %s kit for %s".formatted(id.toString(), target.getName().getString())), true);
+            }
         }
         return Command.SINGLE_SUCCESS;
     }
