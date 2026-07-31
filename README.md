@@ -11,6 +11,8 @@ A Kit is made out of multiple components:
 - [Ashborn Mod](https://modrinth.com/mod/ashbornmod) Accessories (Optional Mod Dependency)
 - [Hide Body Parts](https://modrinth.com/mod/hide-body-parts) (Optional Mod Dependency)
 
+Use the new `/kit ...` commands to work with the Kit system.
+
 ## Features
 
 - Create and manage Kits
