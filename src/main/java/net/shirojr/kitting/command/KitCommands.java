@@ -85,6 +85,7 @@ public class KitCommands implements CommandRegistrationCallback {
                 )
                 .then(literal("remove")
                         .then(argument("id", IdentifierArgumentType.identifier())
+                                .suggests(REGISTERED_KIT_SUGGESTER)
                                 .executes(context -> KitCommands.removeKit(context, null))
                                 .then(argument("targets", EntityArgumentType.players())
                                         .executes(context -> KitCommands.removeKit(context, EntityArgumentType.getPlayers(context, "targets")))
