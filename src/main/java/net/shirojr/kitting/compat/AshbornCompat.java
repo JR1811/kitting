@@ -1,18 +1,71 @@
 package net.shirojr.kitting.compat;
 
-import net.shirojr.kitting.KittingCompat;
+import io.github.jr1811.ashbornrp.compat.cca.components.AccessoriesComponent;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.shirojr.kitting.compat.util.CompatEntry;
 import net.shirojr.kitting.compat.util.Mod;
+import net.shirojr.kitting.util.NbtKeys;
 
-public class AshbornCompat {
-    static {
-        Mod mod = Mod.NUMISMATIC_OVERHAUL;
-        if (!KittingCompat.isLoaded(mod)) {
-            throw new IllegalStateException("Loaded %s compat class without the mod being present".formatted(mod.getModId()));
+import java.util.HashSet;
+
+public class AshbornCompat implements CompatEntry<AshbornCompat> {
+    private NbtCompound accessoriesNbt;
+
+    public AshbornCompat(NbtCompound accessoriesNbt) {
+        if (!isLoaded()) throw new IllegalStateException(getNotLoadedMessage());
+        this.accessoriesNbt = accessoriesNbt;
+    }
+
+    public AshbornCompat() {
+        this(new NbtCompound());
+    }
+
+    public void updateStoredAccessories(PlayerEntity player) {
+        AccessoriesComponent component = AccessoriesComponent.fromEntity(player);
+        if (component == null) return;
+        NbtCompound ashbornCompatNbt = new NbtCompound();
+        component.writeToNbt(ashbornCompatNbt);
+        this.accessoriesNbt = ashbornCompatNbt.contains("accessories")  //FIXME: external mod should store constants for better compat
+                ? ashbornCompatNbt.getCompound("accessories")
+                : new NbtCompound();
+    }
+
+    public void applyStoredAccessories(PlayerEntity player) {
+        AccessoriesComponent component = AccessoriesComponent.fromEntity(player);
+        if (component == null) return;
+        NbtCompound ashbornCompatNbt = new NbtCompound();
+        ashbornCompatNbt.put("accessories", this.accessoriesNbt);
+        component.readFromNbt(ashbornCompatNbt);
+        component.sync();
+    }
+
+    @Override
+    public Mod getCompatMod() {
+        return Mod.ASHBORNRP;
+    }
+
+    @Override
+    public void fromNbt(NbtCompound nbt) {
+        if (nbt.contains(NbtKeys.ACCESSORIES)) {
+            this.accessoriesNbt = nbt.getCompound(NbtKeys.ACCESSORIES);
         }
     }
 
-    private AshbornCompat() {
+    @Override
+    public void toNbt(NbtCompound nbt) {
+        nbt.put(NbtKeys.ACCESSORIES, this.accessoriesNbt);
     }
 
+    @Override
+    public AshbornCompat copy() {
+        return new AshbornCompat(this.accessoriesNbt.copy());
+    }
 
+    @Override
+    public void clearLiveData(PlayerEntity player) {
+        AccessoriesComponent component = AccessoriesComponent.fromEntity(player);
+        if (component == null) return;
+        component.removeAccessories(true, new HashSet<>(component.getAccessories().keySet()));
+    }
 }
