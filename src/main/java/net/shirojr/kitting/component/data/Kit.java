@@ -106,7 +106,7 @@ public class Kit {
     }
 
     public void clearLiveData(PlayerEntity player) {
-        this.inventoryNbt.clear();
+        player.getInventory().clear();
         this.compatEntries.forEach(compatEntry -> compatEntry.clearLiveData(player));
     }
 
