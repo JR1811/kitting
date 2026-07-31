@@ -10,6 +10,7 @@ A Kit is made out of multiple components:
 - [Trinkets](https://modrinth.com/mod/trinkets) and any mod which relies on Trinket Slots, like [Icarus](https://modrinth.com/mod/icarus) (Optional Mod Dependency)
 - [Ashborn Mod](https://modrinth.com/mod/ashbornmod) Accessories (Optional Mod Dependency)
 - [Hide Body Parts](https://modrinth.com/mod/hide-body-parts) (Optional Mod Dependency)
+- [Illusionable](https://modrinth.com/mod/illusionable) (Optional Mod Dependency)
 
 Use the new `/kit ...` commands to work with the Kit system.
 
