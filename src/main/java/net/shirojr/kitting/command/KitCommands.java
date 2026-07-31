@@ -14,6 +14,8 @@ import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -21,10 +23,7 @@ import net.minecraft.util.Identifier;
 import net.shirojr.kitting.component.KitComponent;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -98,18 +97,26 @@ public class KitCommands implements CommandRegistrationCallback {
                         )
                 )
                 .then(literal("remove")
-                        .then(argument("id", IdentifierArgumentType.identifier())
-                                .suggests(REGISTERED_KIT_SUGGESTER)
-                                .executes(context -> KitCommands.removeKit(context, null))
+                        .then(literal("entry")
+                                .then(argument("id", IdentifierArgumentType.identifier())
+                                        .suggests(REGISTERED_KIT_SUGGESTER)
+                                        .executes(context -> KitCommands.removeKit(context, null))
+                                        .then(argument("targets", EntityArgumentType.players())
+                                                .executes(context -> KitCommands.removeKit(context, EntityArgumentType.getPlayers(context, "targets")))
+                                        )
+                                )
+                        )
+                        .then(literal("all")
+                                .executes(context -> KitCommands.removeAllKits(context, null))
                                 .then(argument("targets", EntityArgumentType.players())
-                                        .executes(context -> KitCommands.removeKit(context, EntityArgumentType.getPlayers(context, "targets")))
+                                        .executes(context -> KitCommands.removeAllKits(context, EntityArgumentType.getPlayers(context, "targets")))
                                 )
                         )
                 )
         );
     }
 
-    private static int printKits(CommandContext<ServerCommandSource> context, @Nullable Collection<ServerPlayerEntity> targets) throws CommandSyntaxException {
+    private static int removeAllKits(CommandContext<ServerCommandSource> context, @Nullable Collection<ServerPlayerEntity> targets) throws CommandSyntaxException {
         if (targets == null) {
             ServerPlayerEntity player = context.getSource().getPlayer();
             if (player == null) throw NO_TARGET.create();
@@ -118,23 +125,15 @@ public class KitCommands implements CommandRegistrationCallback {
         if (targets.isEmpty()) {
             throw NO_TARGET.create();
         }
-        HashSet<Identifier> allKits = new HashSet<>();
-        targets.forEach(player -> allKits.addAll(KitComponent.get(player).getRegisteredKits()));
-        if (allKits.isEmpty()) throw NO_DATA_FOUND.create();
         for (ServerPlayerEntity target : targets) {
             KitComponent component = KitComponent.get(target);
-            List<Identifier> registeredKits = component.getRegisteredKits();
-            if (registeredKits.isEmpty()) continue;
-            MutableText printText = Text.empty().append(target.getName()).append(": ").styled(style -> style.withColor(Formatting.GREEN));
-            for (int i = 0; i < registeredKits.size(); i++) {
-                Identifier kitId = registeredKits.get(i);
-                if (i != 0) {
-                    printText.append(", ");
-                }
-                printText.append(Text.literal(kitId.toString()));
+            if (component.isEmpty()) {
+                context.getSource().sendFeedback(() -> Text.literal(target.getName().getString() + " had no kits registered"), true);
+                continue;
             }
-
-            context.getSource().sendFeedback(() -> printText, false);
+            List<Identifier> registeredKits = new ArrayList<>(component.getRegisteredKits());
+            component.removeKits(registeredKits);
+            context.getSource().sendFeedback(() -> Text.literal("Removed all registered Kits for " + target.getName().getString()), true);
         }
         return Command.SINGLE_SUCCESS;
     }
@@ -157,11 +156,46 @@ public class KitCommands implements CommandRegistrationCallback {
                 context.getSource().sendFeedback(() -> Text.literal("Kit ID was not registered for " + target.getName().getString()), false);
                 continue;
             }
-            component.removeKit(id);
+            component.removeKits(Set.of(id));
             context.getSource().sendFeedback(() -> Text.literal("Removed %s kit for %s".formatted(id.toString(), target.getName().getString())), true);
             anyChanged = true;
         }
         if (!anyChanged) throw NO_DATA_CHANGED.create();
+        return Command.SINGLE_SUCCESS;
+    }
+
+    private static int printKits(CommandContext<ServerCommandSource> context, @Nullable Collection<ServerPlayerEntity> targets) throws CommandSyntaxException {
+        if (targets == null) {
+            ServerPlayerEntity player = context.getSource().getPlayer();
+            if (player == null) throw NO_TARGET.create();
+            targets = Set.of(player);
+        }
+        if (targets.isEmpty()) {
+            throw NO_TARGET.create();
+        }
+        HashSet<Identifier> allKits = new HashSet<>();
+        targets.forEach(player -> allKits.addAll(KitComponent.get(player).getRegisteredKits()));
+        if (allKits.isEmpty()) throw NO_DATA_FOUND.create();
+        for (ServerPlayerEntity target : targets) {
+            KitComponent component = KitComponent.get(target);
+            List<Identifier> registeredKits = component.getRegisteredKits();
+            if (registeredKits.isEmpty()) continue;
+            MutableText nameText = target.getName().copy().append(": ").styled(style -> style.withColor(Formatting.GREEN));
+            MutableText printText = Text.empty().append(nameText);
+            for (int i = 0; i < registeredKits.size(); i++) {
+                Identifier kitId = registeredKits.get(i);
+                if (i != 0) {
+                    printText.append(", ");
+                }
+                MutableText entryText = Text.literal(kitId.toString()).styled(style ->
+                        style.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, kitId.toString()))
+                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Click to copy")))
+                );
+                printText.append(entryText);
+            }
+
+            context.getSource().sendFeedback(() -> printText, false);
+        }
         return Command.SINGLE_SUCCESS;
     }
 

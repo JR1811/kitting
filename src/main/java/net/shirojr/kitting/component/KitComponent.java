@@ -18,6 +18,7 @@ import net.shirojr.kitting.util.KittingNbtKeys;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
@@ -39,6 +40,10 @@ public class KitComponent implements Component, AutoSyncedComponent {
 
     public boolean isRegisteredKit(Identifier identifier) {
         return this.storedKits.containsKey(identifier);
+    }
+
+    public boolean isEmpty() {
+        return this.storedKits.isEmpty();
     }
 
     public List<Identifier> getRegisteredKits() {
@@ -70,8 +75,8 @@ public class KitComponent implements Component, AutoSyncedComponent {
         this.sync();
     }
 
-    public void removeKit(Identifier identifier) {
-        this.storedKits.remove(identifier);
+    public void removeKits(Collection<Identifier> identifiers) {
+        identifiers.forEach(this.storedKits::remove);
         this.sync();
     }
 
