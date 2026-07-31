@@ -66,6 +66,9 @@ dependencies {
 
     // Hide Body Parts
     modImplementation "maven.modrinth:hide-body-parts:${project.hide_body_parts_version}"
+
+    // Illusionable
+    modImplementation "maven.modrinth:illusionable:${project.illusionable_version}"
 }
 
 processResources {

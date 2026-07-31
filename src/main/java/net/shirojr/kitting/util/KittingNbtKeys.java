@@ -9,4 +9,7 @@ public interface KittingNbtKeys {
     String TRINKETS = "Trinkets";
     String ACCESSORIES = "Accessories";
     String BODY_PARTS = "BodyParts";
+    String ILLUSION = "Illusion";
+    String IS_ILLUSION = "IsIllusion";
+    String UUIDS = "UUIDs";
 }

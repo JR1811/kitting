@@ -4,7 +4,8 @@ public enum Mod {
     NUMISMATIC_OVERHAUL("numismatic-overhaul"),
     ASHBORNRP("ashbornrp"),
     TRINKETS("trinkets"),
-    HIDE_BODY_PARTS("hide-body-parts");
+    HIDE_BODY_PARTS("hide-body-parts"),
+    ILLUSIONABLE("illusionable");
 
     private final String modId;
 
