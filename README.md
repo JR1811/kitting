@@ -11,6 +11,7 @@ A Kit is made out of multiple components:
 - [Ashborn Mod](https://modrinth.com/mod/ashbornmod) Accessories (Optional Mod Dependency)
 - [Hide Body Parts](https://modrinth.com/mod/hide-body-parts) (Optional Mod Dependency)
 - [Illusionable](https://modrinth.com/mod/illusionable) (Optional Mod Dependency)
+- [LevelZ](https://modrinth.com/mod/levelz) (Optional Mod Dependency)
 
 Use the new `/kit ...` commands to work with the Kit system.
 
