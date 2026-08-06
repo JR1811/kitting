@@ -115,7 +115,39 @@ public class KitCommands implements CommandRegistrationCallback {
                                 )
                         )
                 )
+                .then(literal("clearLiveData")
+                        .then(argument("id", IdentifierArgumentType.identifier())
+                                .suggests(REGISTERED_KIT_SUGGESTER)
+                                .executes(context -> KitCommands.clearLiveData(context, null))
+                                .then(argument("targets", EntityArgumentType.players())
+                                        .executes(context -> KitCommands.clearLiveData(context, EntityArgumentType.getPlayers(context, "targets")))
+                                )
+                        )
+                )
         );
+    }
+
+    private static int clearLiveData(CommandContext<ServerCommandSource> context, @Nullable Collection<ServerPlayerEntity> targets) throws CommandSyntaxException {
+        if (targets == null) {
+            ServerPlayerEntity player = context.getSource().getPlayer();
+            if (player == null) throw NO_TARGET.create();
+            targets = Set.of(player);
+        }
+        if (targets.isEmpty()) {
+            throw NO_TARGET.create();
+        }
+        Identifier id = IdentifierArgumentType.getIdentifier(context, "id");
+        for (ServerPlayerEntity target : targets) {
+            KitComponent component = KitComponent.get(target);
+            String targetName = target.getName().getString();
+            if (!component.contains(id)) {
+                context.getSource().sendFeedback(() -> Text.literal("%s has %s not registered".formatted(targetName, id.toString())), true);
+                continue;
+            }
+            component.clearLiveData(id);
+            context.getSource().sendFeedback(() -> Text.literal("Cleared %s Kit Live Data for %s".formatted(id.toString(), targetName)), true);
+        }
+        return Command.SINGLE_SUCCESS;
     }
 
     private static int removeAllKits(CommandContext<ServerCommandSource> context, @Nullable Collection<ServerPlayerEntity> targets) throws CommandSyntaxException {

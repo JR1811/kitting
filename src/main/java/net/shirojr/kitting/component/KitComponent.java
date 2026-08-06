@@ -46,6 +46,10 @@ public class KitComponent implements Component, AutoSyncedComponent {
         return this.storedKits.isEmpty();
     }
 
+    public boolean contains(Identifier kitId) {
+        return this.storedKits.containsKey(kitId);
+    }
+
     public List<Identifier> getRegisteredKits() {
         return new ArrayList<>(this.storedKits.keySet());
     }

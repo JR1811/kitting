@@ -5,7 +5,8 @@ public enum Mod {
     ASHBORNRP("ashbornrp"),
     TRINKETS("trinkets"),
     HIDE_BODY_PARTS("hide-body-parts"),
-    ILLUSIONABLE("illusionable");
+    ILLUSIONABLE("illusionable"),
+    LEVEL_Z("levelz");
 
     private final String modId;
 

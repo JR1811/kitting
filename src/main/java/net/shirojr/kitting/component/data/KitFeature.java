@@ -17,7 +17,8 @@ public enum KitFeature {
     TRINKETS(Mod.TRINKETS, KittingNbtKeys.TRINKETS, TrinketCompat::new),
     ASHBORNRP(Mod.ASHBORNRP, KittingNbtKeys.ACCESSORIES, AshbornCompat::new),
     HIDE_BODY_PARTS(Mod.HIDE_BODY_PARTS, KittingNbtKeys.BODY_PARTS, HideBodyPartsCompat::new),
-    ILLUSIONABLE(Mod.ILLUSIONABLE, KittingNbtKeys.ILLUSION, IllusionableCompat::new);
+    ILLUSIONABLE(Mod.ILLUSIONABLE, KittingNbtKeys.ILLUSION, IllusionableCompat::new),
+    LEVEL_Z(Mod.LEVEL_Z, KittingNbtKeys.LEVEL_Z, LevelZCompat::new);
 
     private final @Nullable Mod requiredMod;
     private final String nbtKey;

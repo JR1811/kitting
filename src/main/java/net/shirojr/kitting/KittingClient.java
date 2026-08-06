@@ -7,5 +7,6 @@ public class KittingClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         KittingEvents.registerClient();
+        KittingS2CNetworking.initialize();
     }
 }
