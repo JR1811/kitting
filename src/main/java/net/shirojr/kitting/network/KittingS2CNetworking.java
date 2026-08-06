@@ -1,4 +1,4 @@
-package net.shirojr.kitting;
+package net.shirojr.kitting.network;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.shirojr.kitting.KittingCompat;
 import net.shirojr.kitting.compat.util.Mod;
 import net.shirojr.kitting.network.packet.SyncLevelZEntityAttributesS2CPacket;
 
