@@ -1,6 +1,7 @@
 package net.shirojr.kitting.compat;
 
 import io.github.jr1811.ashbornrp.compat.cca.components.AccessoriesComponent;
+import io.github.jr1811.ashbornrp.util.AshbornModNbtKeys;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.shirojr.kitting.compat.util.CompatEntry;
@@ -49,8 +50,8 @@ public class AshbornCompat implements CompatEntry<AshbornCompat> {
         if (component == null) return;
         NbtCompound ashbornCompatNbt = new NbtCompound();
         component.writeToNbt(ashbornCompatNbt);
-        this.accessoriesNbt = ashbornCompatNbt.contains("accessories")  //FIXME: external mod should store constants for better compat
-                ? ashbornCompatNbt.getCompound("accessories")
+        this.accessoriesNbt = ashbornCompatNbt.contains(AshbornModNbtKeys.ACCESSORIES)
+                ? ashbornCompatNbt.getCompound(AshbornModNbtKeys.ACCESSORIES)
                 : new NbtCompound();
     }
 
@@ -59,7 +60,7 @@ public class AshbornCompat implements CompatEntry<AshbornCompat> {
         AccessoriesComponent component = AccessoriesComponent.fromEntity(player);
         if (component == null) return;
         NbtCompound ashbornCompatNbt = new NbtCompound();
-        ashbornCompatNbt.put("accessories", this.accessoriesNbt);
+        ashbornCompatNbt.put(AshbornModNbtKeys.ACCESSORIES, this.accessoriesNbt);
         component.readFromNbt(ashbornCompatNbt);
         component.sync();
     }
