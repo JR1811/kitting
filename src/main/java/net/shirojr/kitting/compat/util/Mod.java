@@ -6,7 +6,8 @@ public enum Mod {
     TRINKETS("trinkets"),
     HIDE_BODY_PARTS("hide-body-parts"),
     ILLUSIONABLE("illusionable"),
-    LEVEL_Z("levelz");
+    LEVEL_Z("levelz"),
+    PEHKUI("pehkui");
 
     private final String modId;
 

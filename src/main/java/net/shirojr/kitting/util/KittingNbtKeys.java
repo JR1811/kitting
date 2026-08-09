@@ -13,4 +13,5 @@ public interface KittingNbtKeys {
     String IS_ILLUSION = "IsIllusion";
     String UUIDS = "UUIDs";
     String LEVEL_Z = "LevelZ";
+    String PEHKUI = "Pehkui";
 }

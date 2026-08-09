@@ -4,14 +4,18 @@ Kitting is a Fabric Minecraft mod which creates and manages
 different states of a player's inventory, called "Kit".
 
 A Kit is made out of multiple components:
+
 - Player Inventory (base inventory, hotbar, off-hand, armor, ...)
 - Player's Ender Chest Inventory
 - [Numismatic Overhaul](https://modrinth.com/mod/numismatic-overhaul) (Optional Mod Dependency)
-- [Trinkets](https://modrinth.com/mod/trinkets) and any mod which relies on Trinket Slots, like [Icarus](https://modrinth.com/mod/icarus) (Optional Mod Dependency)
+- [Trinkets](https://modrinth.com/mod/trinkets) and any mod which relies on Trinket Slots,
+  like [Icarus](https://modrinth.com/mod/icarus) (Optional Mod Dependency)
 - [Ashborn Mod](https://modrinth.com/mod/ashbornmod) Accessories (Optional Mod Dependency)
 - [Hide Body Parts](https://modrinth.com/mod/hide-body-parts) (Optional Mod Dependency)
 - [Illusionable](https://modrinth.com/mod/illusionable) (Optional Mod Dependency)
 - [LevelZ](https://modrinth.com/mod/levelz) (Optional Mod Dependency)
+- [BackSlot](https://modrinth.com/mod/backslot) (Optional Mod Dependency)
+- [Pehkui](https://modrinth.com/mod/pehkui) (Optional Mod Dependency)
 
 Use the new `/kit ...` commands to work with the Kit system.
 

@@ -36,6 +36,11 @@ repositories {
         name = "Sleeping Town"
         url = "https://repo.sleeping.town/"
     }
+
+    // Pehkui
+    maven {
+        url = "https://jitpack.io"
+    }
 }
 
 fabricApi {
@@ -53,6 +58,8 @@ dependencies {
     // Cardinal Components API
     modApi "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
     modApi "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
+    modApi "dev.onyxstudios.cardinal-components-api:cardinal-components-scoreboard:${project.cca_version}"
+
 
     // Numismatic Overhaul
     modImplementation "maven.modrinth:numismatic-overhaul:${project.numismatic_overhaul_version}"
@@ -72,6 +79,15 @@ dependencies {
 
     // LevelZ
     modImplementation "maven.modrinth:levelz:${project.levelz_version}"
+
+    // BackSlot
+    //modImplementation "maven.modrinth:backslot:${project.backslot_version}"
+    // not needed as its being serialized with the Player Inventory by default
+
+    // Pehkui
+    modApi("com.github.Virtuoel:Pehkui:${project.pehkui_version}", {
+        exclude group: "net.fabricmc.fabric-api"
+    })
 }
 
 processResources {

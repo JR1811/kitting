@@ -1,13 +1,15 @@
 {
-	"required": true,
-	"package": "net.shirojr.kitting.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+  "required": true,
+  "package": "net.shirojr.kitting.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "compat.PehkuiCompatMixin"
+  ],
+  "plugin": "net.shirojr.kitting.util.mixin.KittingMixinPlugin",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
 	}
 }
