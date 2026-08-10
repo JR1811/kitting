@@ -12,7 +12,7 @@ public class NumismaticCompat implements CompatEntry<NumismaticCompat> {
     private long storedCurrency;
 
     public NumismaticCompat(long storedCurrency) {
-        if (!isLoaded()) throw new IllegalStateException(getNotLoadedMessage());
+        this.loadCheck();
         this.storedCurrency = storedCurrency;
     }
 

@@ -14,7 +14,7 @@ public class AshbornCompat implements CompatEntry<AshbornCompat> {
     private NbtCompound accessoriesNbt;
 
     public AshbornCompat(NbtCompound accessoriesNbt) {
-        if (!isLoaded()) throw new IllegalStateException(getNotLoadedMessage());
+        this.loadCheck();
         this.accessoriesNbt = accessoriesNbt;
     }
 

@@ -14,7 +14,7 @@ public class HideBodyPartsCompat implements CompatEntry<HideBodyPartsCompat> {
     private NbtCompound bodyPartsNbt;
 
     public HideBodyPartsCompat(NbtCompound bodyPartsNbt) {
-        if (!isLoaded()) throw new IllegalStateException(getNotLoadedMessage());
+        this.loadCheck();
         this.bodyPartsNbt = bodyPartsNbt;
     }
 

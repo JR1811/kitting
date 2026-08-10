@@ -14,4 +14,5 @@ public interface KittingNbtKeys {
     String UUIDS = "UUIDs";
     String LEVEL_Z = "LevelZ";
     String PEHKUI = "Pehkui";
+    String FABRIC_TAILOR = "FabricTailor";
 }

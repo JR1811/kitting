@@ -16,6 +16,7 @@ A Kit is made out of multiple components:
 - [LevelZ](https://modrinth.com/mod/levelz) (Optional Mod Dependency)
 - [BackSlot](https://modrinth.com/mod/backslot) (Optional Mod Dependency)
 - [Pehkui](https://modrinth.com/mod/pehkui) (Optional Mod Dependency)
+- [Fabric Tailor](https://modrinth.com/mod/fabrictailor) (Optional Mod Dependency) 
 
 Use the new `/kit ...` commands to work with the Kit system.
 

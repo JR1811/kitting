@@ -88,6 +88,9 @@ dependencies {
     modApi("com.github.Virtuoel:Pehkui:${project.pehkui_version}", {
         exclude group: "net.fabricmc.fabric-api"
     })
+
+    // Fabric Tailor
+    modImplementation "maven.modrinth:fabrictailor:${project.fabrictailor_version}"
 }
 
 processResources {

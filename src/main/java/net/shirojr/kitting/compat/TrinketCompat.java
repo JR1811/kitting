@@ -14,7 +14,7 @@ public class TrinketCompat implements CompatEntry<TrinketCompat> {
     private NbtCompound trinketsNbt;
 
     public TrinketCompat(NbtCompound trinketsNbt) {
-        if (!isLoaded()) throw new IllegalStateException(getNotLoadedMessage());
+        this.loadCheck();
         this.trinketsNbt = trinketsNbt;
     }
 

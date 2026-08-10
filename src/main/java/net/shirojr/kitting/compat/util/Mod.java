@@ -7,7 +7,8 @@ public enum Mod {
     HIDE_BODY_PARTS("hide-body-parts"),
     ILLUSIONABLE("illusionable"),
     LEVEL_Z("levelz"),
-    PEHKUI("pehkui");
+    PEHKUI("pehkui"),
+    FABRIC_TAILOR("fabrictailor");
 
     private final String modId;
 

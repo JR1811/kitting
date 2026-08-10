@@ -19,7 +19,8 @@ public enum KitFeature {
     HIDE_BODY_PARTS(Mod.HIDE_BODY_PARTS, KittingNbtKeys.BODY_PARTS, HideBodyPartsCompat::new),
     ILLUSIONABLE(Mod.ILLUSIONABLE, KittingNbtKeys.ILLUSION, IllusionableCompat::new),
     LEVEL_Z(Mod.LEVEL_Z, KittingNbtKeys.LEVEL_Z, LevelZCompat::new),
-    PEHKUI(Mod.PEHKUI, KittingNbtKeys.PEHKUI, PehkuiCompat::new);
+    PEHKUI(Mod.PEHKUI, KittingNbtKeys.PEHKUI, PehkuiCompat::new),
+    FABRIC_TAILOR(Mod.FABRIC_TAILOR, KittingNbtKeys.FABRIC_TAILOR, FabricTailorCompat::new);
 
     private final @Nullable Mod requiredMod;
     private final String nbtKey;

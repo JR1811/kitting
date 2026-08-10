@@ -18,7 +18,7 @@ public class LevelZCompat implements CompatEntry<LevelZCompat> {
     private NbtCompound levelsNbt;
 
     public LevelZCompat(NbtCompound levelsNbt) {
-        if (!isLoaded()) throw new IllegalStateException(getNotLoadedMessage());
+        this.loadCheck();
         this.levelsNbt = levelsNbt;
     }
 

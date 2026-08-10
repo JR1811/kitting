@@ -16,7 +16,7 @@ public class PehkuiCompat implements CompatEntry<PehkuiCompat> {
     private NbtCompound nbt;
 
     public PehkuiCompat(NbtCompound nbt) {
-        if (!isLoaded()) throw new IllegalStateException(getNotLoadedMessage());
+        this.loadCheck();
         this.nbt = nbt;
     }
 

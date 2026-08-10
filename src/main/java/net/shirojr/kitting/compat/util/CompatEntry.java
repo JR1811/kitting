@@ -12,6 +12,10 @@ public interface CompatEntry<T extends CompatEntry<T>> extends KitEntry<T> {
         return FabricLoader.getInstance().isModLoaded(getCompatMod().getModId());
     }
 
+    default void loadCheck() {
+        if (!isLoaded()) throw new IllegalStateException(getNotLoadedMessage());
+    }
+
     default String getNotLoadedMessage() {
         return "Loaded %s compat class without the mod being present".formatted(getCompatMod().getModId());
     }

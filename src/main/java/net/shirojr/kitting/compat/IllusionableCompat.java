@@ -18,7 +18,7 @@ public class IllusionableCompat implements CompatEntry<IllusionableCompat> {
     private HashSet<UUID> illusionTargets;
 
     public IllusionableCompat(boolean isIllusion, HashSet<UUID> illusionTargets) {
-        if (!isLoaded()) throw new IllegalStateException(getNotLoadedMessage());
+        this.loadCheck();
         this.isIllusion = isIllusion;
         this.illusionTargets = illusionTargets;
     }
